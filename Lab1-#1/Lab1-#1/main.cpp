@@ -84,37 +84,55 @@
  */
 
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
-// Класс "Светофор"
-class stopLight
+//// Класс "Светофор"
+//class stopLight
+//{
+//    // Время горения светофора:
+//    int timeRed = 108;
+//    int timeYellow = 4;
+//    int timeGreen = 16;
+//    
+//public:
+//    //double RedYellowProbability();
+//    //double
+//    
+//};
+
+// Количество информации о том, что горит красный и желтый сигнал
+double Propability(double* px, int n)                     // Массив - все вероятности, n - до какого идти
 {
-    // Время горения светофора:
-    int timeRed = 108;
-    int timeYellow = 4;
-    int timeGreen = 16;
+    double result = 0;
+    //double px[2] = {pRed,pYellow};
     
-public:
-   // double Calculate
+    for(int i = 0 ; i < n; i++)
+    {
+        result = result +  px[i] * log2(1/px[i]);       // Используем формулу
+    }
     
-};
+    return result;
+}
 
 int main(int argc, const char * argv[]) {
     // insert code here...
     //std::cout << "Hello, World!\n";
     
-    double pR = 108/128;                                // Вероятность того, что загорится красный сигнал
-    double pY = 4/128;                                  // желтый
-    double pG = 16/128;                                 // зеленый
+//    double pR = 108.0/128.0;                                // Вероятность того, что загорится красный сигнал
+//    double pY = 4.0/128.0;                                  // желтый
+//    double pG = 16.0/128.0;                                 // зеленый
+    
+    double p[3] = {108.0/128.0, 4.0/128.0, 16.0/128.0 };
     
     cout << "   ==== Лабораторная работа #1 ====" << endl;
-    
     cout << "Какое количество информации несет сообщение о том, что горит красный и желтый" << endl;
-    cout << "сигнал светофора:" << endl;
+    cout << "сигнал светофора:" << Propability(p,2) <<endl;
     
+    cout << endl << "Какое количество информации несет сообщение о том, что горят" << endl << "все сигналы светофора:" << Propability(p,3) << endl;
     
-    
+    //cout <<  << endl;
     
     return 0;
 }

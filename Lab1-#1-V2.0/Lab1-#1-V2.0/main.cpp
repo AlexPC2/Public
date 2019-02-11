@@ -6,14 +6,6 @@
 //  Copyright © 2019 MPEI. All rights reserved.
 //
 
-#include <iostream>
-#include <vector>
-#include <set>
-
-#include <math.h>
-
-using namespace std;
-
 /*
  
  Задание №2.
@@ -28,6 +20,19 @@ using namespace std;
  Составить программу, которая кодирует строку любой длины, составляет  кодовый словарь  и выводит закодированное сообщение
  
  */
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <set>
+#include <math.h>
+#include <iomanip>
+#include <math.h>
+
+using namespace std;
+
+typedef wchar_t char_t;
+typedef std::wstring string;
 
 int main(int argc, const char * argv[]) {
     // insert code here...

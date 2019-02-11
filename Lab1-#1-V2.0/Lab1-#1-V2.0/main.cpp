@@ -7,6 +7,10 @@
 //
 
 #include <iostream>
+#include <vector>
+#include <set>
+
+#include <math.h>
 
 using namespace std;
 
@@ -34,8 +38,54 @@ int main(int argc, const char * argv[]) {
     string strIn;
     cin >> strIn;
     
+   // vector<char> dictioanry;                        // Словарь уникальных символов
+    set<char> dict;
     
+    // Пытаемся составить словарь из уникальных символов:
     
+    int charCode[256];                                // Даем всем символам номера
+    int valueForChar = 0;
+    for(char c : dict)
+        charCode[c] = valueForChar++;
     
+    int uniq_count = (int)dict.size();               // Количество уникальных символов
+    int signs = log2(uniq_count);                    // Количество нулей - длина каждого кода знака
+    
+    /*
+    int valuesForChars[256];
+    memset(valuesForChars, 0, sizeof(valuesForChars));
+    int valueForChar = 0;
+    for(wchar_t c : dict)
+        valuesForChars[c] = valueForChar++;
+    
+    int uniq_count = (int)dict.size();
+    int signs = log2(uniq_count);
+    
+    for(wchar_t c : strIn) {
+        if(c == 0xd0)
+            continue;
+        //int v = char2int(c, dict);
+        int v = valuesForChars[c];
+        //        std::cout << std::setw(signs) << std::setfill('0') << v << " ";
+        //        std::cout << c << " ";
+        for (int i = signs; i >= 0; i--)
+            std::cout << ((v >> i) & 1);
+        std::cout << " ";
+    }
+    
+     */
+     
+    // Teстируем вывод map
+    /*
+    for(char s : strIn)
+    {
+        dict.insert(s);
+    }
+    
+    for(char s : dict)
+    {
+        cout << s << " ";
+    }
+    */
     return 0;
 }

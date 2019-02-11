@@ -15,6 +15,7 @@
 // среднее количество информации о том, что загорелся любой из трех сигналов.
 
 // Формулы:
+
 /*
  
  i  = log(1/p)  - Количество информации при наступлении события х
@@ -47,44 +48,11 @@
                 x = 1        2
  
  Для сфетофора n = 3, вероятности даны.
- 
- 
-          |##|
-          _[]_
-         [____]
-     .----'  '----.
- .===|    .==.    |===.
- \   |   /####\   |   /
- /   |   \####/   |   \
- '===|    `""`    |==='
- .===|    .==.    |===.
- \   |   /::::\   |   /
- /   |   \::::/   |   \
- '===|    `""`    |==='
- .===|    .==.    |===.
- \   |   /&&&&\   |   /
- /   |   \&&&&/   |   \
- '===|    `""`    |==='
- jgs '--.______.--'
- 
-
- ================================================
-              ___
-            _/[]L\__
-           (_,.__,._)
-  -----------`'--`'-----------------------
-       __
-  _____|L\___     =================
- (_,._____,._)
- ---`'-----`'------------
- 
- 
- ====================
- 
  */
 
 #include <iostream>
 #include <math.h>
+#include <numeric>
 
 using namespace std;
 
@@ -103,17 +71,19 @@ using namespace std;
 //};
 
 // Количество информации о том, что горит красный и желтый сигнал
-double Propability(double* px, int n)                     // Массив - все вероятности, n - до какого идти
+double Propability(const double* px, int n)                     // Массив - все вероятности, n - до какого идти
 {
     double result = 0;
-    //double px[2] = {pRed,pYellow};
-    
     for(int i = 0 ; i < n; i++)
     {
-        result = result +  px[i] * log2(1/px[i]);       // Используем формулу
+        result = result +  px[i] * log2(1.0/px[i]);       // Используем формулу
     }
-    
     return result;
+}
+
+double f(double const& px)
+{
+    return px * log2(1 / px);
 }
 
 int main(int argc, const char * argv[]) {
@@ -124,8 +94,15 @@ int main(int argc, const char * argv[]) {
 //    double pY = 4.0/128.0;                                  // желтый
 //    double pG = 16.0/128.0;                                 // зеленый
     
-    double p[3] = {108.0/128.0, 4.0/128.0, 16.0/128.0 };
+    const int N = 3;
+    double p[N] = { 108.0/128.0, 4.0/128.0, 16.0/128.0 };
     
+    double H1 = std::accumulate<const double*, double>(begin(p), begin(p)+2, 0, [](double current_sum, double const& px) { return current_sum + f(px); });
+    double H2 = std::accumulate<const double*, double>(begin(p), end(p), 0, [](double current_sum, double const& px) { return current_sum + f(px); });
+
+    std::cout << "H1=" << H1 << std::endl;
+    std::cout << "H2=" << H2 << std::endl;
+
     cout << "   ==== Лабораторная работа #1 ====" << endl;
     cout << "Какое количество информации несет сообщение о том, что горит красный и желтый" << endl;
     cout << "сигнал светофора:" << Propability(p,2) <<endl;

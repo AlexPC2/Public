@@ -43,13 +43,39 @@ int main(int argc, const char * argv[]) {
     
     // Пытаемся составить словарь из уникальных символов:
     
+    for(char s : strIn)
+    {
+        if(s == 0xd0)
+            continue;
+        else
+            dict.insert(s);
+    }
+    
     int charCode[256];                                // Даем всем символам номера
+    memset(charCode, 0, sizeof(charCode));
     int valueForChar = 0;
     for(char c : dict)
         charCode[c] = valueForChar++;
     
+    
+    
     int uniq_count = (int)dict.size();               // Количество уникальных символов
     int signs = log2(uniq_count);                    // Количество нулей - длина каждого кода знака
+    
+    for(char c : strIn) {
+        //if(c == 0xd0)
+        //    continue;
+        //int v = char2int(c, dict);
+        int v = charCode[c];
+        //        std::cout << std::setw(signs) << std::setfill('0') << v << " ";
+        //        std::cout << c << " ";
+        for (int i = signs; i >= 0; i--)
+            std::cout << ((v >> i) & 1);
+        std::cout << " ";
+    }
+    
+    char c;
+    std::cin >> c;
     
     /*
     int valuesForChars[256];
@@ -77,10 +103,6 @@ int main(int argc, const char * argv[]) {
      
     // Teстируем вывод map
     /*
-    for(char s : strIn)
-    {
-        dict.insert(s);
-    }
     
     for(char s : dict)
     {

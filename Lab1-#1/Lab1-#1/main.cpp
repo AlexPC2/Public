@@ -81,11 +81,13 @@ double Propability(const double* px, int n)                     // Массив 
     return result;
 }
 
+/*
 double f(double const& px)
 {
     return px * log2(1 / px);
 }
-
+*/
+ 
 int main(int argc, const char * argv[]) {
     // insert code here...
     //std::cout << "Hello, World!\n";
@@ -97,17 +99,18 @@ int main(int argc, const char * argv[]) {
     const int N = 3;
     double p[N] = { 108.0/128.0, 4.0/128.0, 16.0/128.0 };
     
-    double H1 = std::accumulate<const double*, double>(begin(p), begin(p)+2, 0, [](double current_sum, double const& px) { return current_sum + f(px); });
-    double H2 = std::accumulate<const double*, double>(begin(p), end(p), 0, [](double current_sum, double const& px) { return current_sum + f(px); });
+    //double H1 = std::accumulate<const double*, double>(begin(p), begin(p)+2, 0, [](double current_sum, double const& px) { return current_sum + f(px); });
+    //double H2 = std::accumulate<const double*, double>(begin(p), end(p), 0, [](double current_sum, double const& px) { return current_sum + f(px); });
 
-    std::cout << "H1=" << H1 << std::endl;
-    std::cout << "H2=" << H2 << std::endl;
+    //std::cout << "H1=" << H1 << std::endl;
+    //std::cout << "H2=" << H2 << std::endl;
 
     cout << "   ==== Лабораторная работа #1 ====" << endl;
     cout << "Какое количество информации несет сообщение о том, что горит красный и желтый" << endl;
     cout << "сигнал светофора:" << Propability(p,2) <<endl;
     
-    cout << endl << "Какое количество информации несет сообщение о том, что горят" << endl << "все сигналы светофора:" << Propability(p,3) << endl;
+    cout << endl << "Какое количество информации несет сообщение о том, что горят" << endl << "все сигналы светофора:" << Propability(p,3)
+    << endl << endl;
     
     //cout <<  << endl;
     

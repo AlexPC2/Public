@@ -76,7 +76,7 @@ double Propability(const double* px, int n)                     // Массив 
     double result = 0;
     for(int i = 0 ; i < n; i++)
     {
-        result = result +  px[i] * log2(1.0/px[i]);       // Используем формулу
+        result = result +  px[i] * log2(1/px[i]);            // Используем формулу
     }
     return result;
 }
@@ -92,12 +92,12 @@ int main(int argc, const char * argv[]) {
     // insert code here...
     //std::cout << "Hello, World!\n";
     
-//    double pR = 108.0/128.0;                                // Вероятность того, что загорится красный сигнал
-//    double pY = 4.0/128.0;                                  // желтый
-//    double pG = 16.0/128.0;                                 // зеленый
+//    double pR = 108.0/128.0;                                       // Вероятность того, что загорится красный сигнал
+//    double pY = 4.0/128.0;                                         // желтый
+//    double pG = 16.0/128.0;                                        // зеленый
     
     const int N = 3;
-    double p[N] = { 108.0/128.0, 4.0/128.0, 16.0/128.0 };
+    double p[N] = { 108.0/128.0, 4.0/128.0, 16.0/128.0 };       // Вероятности горения цветоа
     
     //double H1 = std::accumulate<const double*, double>(begin(p), begin(p)+2, 0, [](double current_sum, double const& px) { return current_sum + f(px); });
     //double H2 = std::accumulate<const double*, double>(begin(p), end(p), 0, [](double current_sum, double const& px) { return current_sum + f(px); });

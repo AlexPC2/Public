@@ -32,7 +32,7 @@
 using namespace std;
 
 typedef wchar_t char_t;
-typedef std::wstring string;
+//typedef std::wstring string;
 
 int main(int argc, const char * argv[]) {
     // insert code here...

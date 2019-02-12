@@ -33,27 +33,33 @@ int main(int argc, const char * argv[])
     // compute unique set of chars
     std::set<char_t> dict;
     for(char_t c : s) {
-        if(c == 0xd0)
-            continue;
         //std::cout << c << " ";
+        if(c == 0xd0 || c == 0xd1) // skip unicode delimiter
+            continue;
         dict.insert(c);
     }
+
+    //std::cout << "\n";
 
     // generate unique integer value for each unique simbole in the set
     int valuesForChars[256];
     memset(valuesForChars, 0, sizeof(valuesForChars));
     int valueForChar = 0;
-    for(char_t c : dict)
-        valuesForChars[c] = valueForChar++;
+    for(char_t c : dict) {
+        valuesForChars[c%256] = valueForChar++;
+        //std::cout << c << " ";
+    }
 
+    //std::cout << "\n";
+    
     int uniq_count = (int)dict.size();
     int signs = log2(uniq_count);
     
     for(char_t c : s) {
-        if(c == 0xd0)
+        if(c == 0xd0 || c == 0xd1)
             continue;
         //int v = char2int(c, dict);
-        int v = valuesForChars[c];
+        int v = valuesForChars[c%256];
 //        std::cout << std::setw(signs) << std::setfill('0') << v << " ";
 //        std::cout << c << " ";
         for (int i = signs; i >= 0; i--)

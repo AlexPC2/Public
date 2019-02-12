@@ -12,6 +12,8 @@
 #include <math.h>
 #include <iomanip>
 
+
+// tet
 typedef wchar_t char_t;
 typedef std::wstring string;
 //typedef std::wcin cin;

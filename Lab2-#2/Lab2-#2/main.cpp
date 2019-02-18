@@ -30,9 +30,14 @@ string isk(string& A,int n)
     return resStr;
 }
 
-void printChet()
+void printChet(int v)
 {
-    
+        if(v == 0 )
+        {
+          cout << " Четное" << endl;
+        }else{
+          cout <<" He четное" << endl;
+        }
 }
 
 int main(int argc, const char * argv[]) {
@@ -43,18 +48,31 @@ int main(int argc, const char * argv[]) {
     
     std::cout << "A=";
     std::cin >> A;
-    if(chet(A) == 0) cout << " Четное" << endl;
-    else
-        cout <<" He четное" << endl;
+    printChet(chet(A));
+   // if(chet(A) == 0) cout << " Четное" << endl;
+    //else
+    //    cout <<" He четное" << endl;
     //std::cout << chet(A) << std::endl;
     
-    cout << endl << " Искаженное число в одном разряде:";
+    cout << endl << " Искаженное число в одном разряде:" << endl;
     
-    A[1] = A[1] == '1' ? '0' : '1';
-    std::cout << "Aisk1=" << A << std::endl;
-    std::cout << chet(A) << std::endl;
+    string Aisk = A;
+    
+    Aisk[1] = Aisk[1] == '1' ? '0' : '1';
+    std::cout << "Aisk1=" << Aisk << std::endl;
+    printChet(chet(Aisk));
+    //std::cout << chet(A) << std::endl;
     //std::cout << "N=";
     
+    cout << endl << " Искаженное число в трех разрядах:" << endl;
+    
+    string Aisk3 = isk(A,3);
+    
+    cout << "Aisk3=" << Aisk3 << endl;
+    
+    printChet(chet(Aisk3));
+    
+    //cout <<  << endl;
     //std::cin >> N;
 //    char c;
 //    for(int i = 0; i < N; i++) {

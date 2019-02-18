@@ -45,35 +45,99 @@
 
 using namespace std;
 
-double b(double m)
+double f(double x)
 {
-    double bm = (pow(-1,m)+1)/(M_PI * m);
+    while (x > M_PI*2) {
+        x -= M_PI*2;
+    }
+    if(x <= M_PI)
+        return 1.0;
+    else
+        return 0.0;
+}
+
+double pow1(int m)
+{
+    if(m%2 == 0)
+        return 1;
+    else
+        return -1;
+}
+
+double b(double m)                              // Функция b(m)
+{
+    //double bm = (pow(-1,m)+1)/(M_PI * m);
+    double bm = (pow1(m)+1.0)/(M_PI * m);
     return bm;
 }
 
-double g(int  x)
+double a2(int m)
+{
+    double sum = 0;
+    for(double x = 0; x < M_PI*2; x += 0.01) {
+        sum += f(x)*cos(m*x);
+    }
+    double integral = sum / M_PI;
+    return integral;
+}
+double b2(int m)
+{
+    double sum = 0;
+    for(double x = 0; x < M_PI*2; x += 0.01) {
+        sum += f(x)*sin(m*x);
+    }
+    double integral = sum / M_PI;
+    return integral;
+}
+
+
+double g(double  x)                               // Функция g(x)
 {
     double result = 0;
-    double sum = 0;
+    double a0 = 1.0;
+    double sum = a0 / 2.0;
+    double bm = 0;
+    double ds;
     
-    for(int i = 0; i < x ; i++)
+//    for(int m = 1; m < 500; m++)
+//    {
+//        double amm = a2(m);
+//        double bmm = b2(m);
+//        ds = amm*cos(m*x) + bmm*sin(m*x);
+//        sum += ds;
+//    }
+
+    for(int m = 1; m < 500; m++)
     {
-        cout << "B(" << i << ")" << "=" << b(i) << endl;
-        sum = sum + b(i) * sin(i);
+       // cout << "B(" << i << ")" << "=" << b(i) << endl;      // Вывод проемежуточных результатов для тестирования
+       // sum = sum + b(i) * sin(i);                            // Суммируем значения
+        bm = b(m);                                      // Значение b(i)
+        ds = bm*sin(m*x);
+        sum += ds;
     }
-    result = 1.0/2.0 + sum;
+    result = sum;
     return result;
 }
+
+
+
+
 
 int main(int argc, const char * argv[]) {
     // insert code here...
     //std::cout << "Hello, World!\n";
     
-    double yourValue;
-    
-    cout << ">";
-    cin >> yourValue;
-    cout << "Result:" << g(yourValue) << endl;
+    for(double x = 0; x <=M_PI*2; x+=M_PI/4) {
+        double gx = g(x);
+        double fx = f(x);
+        double dfx = fx - gx;
+        printf("x=%.4lf |  %.3lf - %.3lf = %.3lf\n", x, fx, gx, dfx);
+    }
+//    double yourValue;
+//
+//    cout << "Input x: ";
+//    cin >> yourValue;
+//    cout << "Result:" << g(yourValue) << endl;
     
     return 0;
 }

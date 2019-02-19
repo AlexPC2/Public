@@ -21,7 +21,7 @@ int chet(const std::string& A)          // Проверка на четност�
     return n % 2;
 }
 
-string isk(string& A,int n)
+string isk(string& A,int n)             // Искажение
 {
     string resStr = A;
     for(int i = 0; i < n; i++){

@@ -46,7 +46,7 @@
 #include <math.h>
 
 using namespace std;
-/*
+
 double f(double x)
 {
     while (x > M_PI*2) {
@@ -61,24 +61,25 @@ double f(double x)
 
 double pow1(int m)
 {
-    if(m%2 == 0)
+    if(m%2 == 1)
         return 1;
     else
         return -1;
 }
-*/
+
 double b(double m)                              // Функция b(m)
 {
-    double bm = (pow(-1,m)+1)/(M_PI * m);
+    double bm = (pow(-1,m+1)+1)/(M_PI * m);
     //double bm = (pow1(m)+1.0)/(M_PI * m);
     return bm;
 }
-/*
+
 double a2(int m)
 {
     double sum = 0;
-    for(double x = 0; x < M_PI*2; x += 0.01) {
-        sum += f(x)*cos(m*x);
+    const double dx = 0.01;
+    for(double x = 0; x < M_PI*2; x += dx) {
+        sum += f(x)*cos(m*x)*dx;
     }
     double integral = sum / M_PI;
     return integral;
@@ -86,76 +87,72 @@ double a2(int m)
 double b2(int m)
 {
     double sum = 0;
-    for(double x = 0; x < M_PI*2; x += 0.01) {
-        sum += f(x)*sin(m*x);
+    const double dx = 0.01;
+    for(double x = 0; x < M_PI*2; x += dx) {
+        sum += f(x)*sin(m*x)*dx;
     }
     double integral = sum / M_PI;
     return integral;
 }
 
-*/
-double g(double  x, double * delt)                               // Функция g(x)
+
+double g1(double  x, int mmax)                               // Функция g(x)
 {
-    double delta = 0;
-    
-    double result = 0;
     double a0 = 1.0;
-    double sum = a0 / 2.0;
-    double bm = 0;
+    double amm, bmm;
     double ds;
     
-    double d0 = -10;
-    
-//    for(int m = 1; m < 500; m++)
-//    {
-//        double amm = a2(m);
-//        double bmm = b2(m);
-//        ds = amm*cos(m*x) + bmm*sin(m*x);
-//        sum += ds;
-//    }
+    double sum = a0 / 2.0;
 
-    for(int m = 1; m < x; m++)
+    for(int m = 1; m < mmax; m++)
     {
-       // cout << "B(" << i << ")" << "=" << b(i) << endl;      // Вывод проемежуточных результатов для тестирования
-       // sum = sum + b(i) * sin(i);                            // Суммируем значения
-        bm = b(m);                                      // Значение b(i)
-        ds = bm*sin(m);
-//        if(d0 - ds > delta && d0 != -10)
-//        {
-//            delta = ds - d0;
-//        }
-//        d0 = ds;
-        
-        if(1-ds >delta) delta = 1-ds;
-        
+        amm = a2(m);
+        bmm = b2(m);
+        ds = amm*cos(m*x) + bmm*sin(m*x);
         sum += ds;
     }
-    result = sum;
-    *delt = delta;
-    return result;
+
+    return sum;
 }
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    //std::cout << "Hello, World!\n";
+double g2(double  x, int mmax)                               // Функция g(x)
+{
+    double a0 = 1.0;
+    double bm = 0;
+    double ds;
+    double sum = a0 / 2.0;
+
+    for(int m = 1; m < mmax; m++)
+    {
+        bm = b(m);                                      // Значение b(i)
+        ds = bm*sin(m*x);
+        sum += ds;
+    }
+    return sum;
+}
+
+int main(int argc, const char * argv[])
+{
+    const int mmax = 50;
+    for(int i = 1; i < mmax; i++)
+        printf("b[%d]=%.6f = %.3f/pi\n", i, b(i), b(i)*M_PI);
+    printf("\n");
     
-    /*
-    for(double x = 0; x <=M_PI*2; x+=M_PI/4) {
-        double gx = g(x);
+    for(double x = 0; x <=M_PI*2; x+=M_PI/8) {
+        double gx = g2(x, mmax);
         double fx = f(x);
         double dfx = fx - gx;
         printf("x=%.4lf |  %.3lf - %.3lf = %.3lf\n", x, fx, gx, dfx);
     }
-     */
-     
-    double yourValue;
-    double d = 0;
     
-    cout << "Input m: ";
-    cin >> yourValue;
-    cout << "Result:" << g(yourValue,&d) << endl;
-    
-    cout << "Max delta:" << d << endl;
+//    double yourValue;
+//    double d = 0;
+//
+//    cout << "Input m: ";
+//    cin >> yourValue;
+//    cout << "Result:" << g(yourValue, &d) << endl;
+//
+//    cout << "Max delta:" << d << endl;
     
     return 0;
 }

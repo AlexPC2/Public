@@ -58,7 +58,7 @@ double f(double x)
         return 0.0;
 }
 
-
+/*
 double pow1(int m)
 {
     if(m%2 == 1)
@@ -66,7 +66,7 @@ double pow1(int m)
     else
         return -1;
 }
-
+*/
 double b(double m)                              // Функция b(m)
 {
     double bm = (pow(-1,m+1)+1)/(M_PI * m);
@@ -95,7 +95,7 @@ double b2(int m)
     return integral;
 }
 
-
+/*
 double g1(double  x, int mmax)                               // Функция g(x)
 {
     double a0 = 1.0;
@@ -114,6 +114,7 @@ double g1(double  x, int mmax)                               // Функция g
 
     return sum;
 }
+*/
 
 double g2(double  x, int mmax)                               // Функция g(x)
 {
@@ -124,7 +125,7 @@ double g2(double  x, int mmax)                               // Функция g
 
     for(int m = 1; m < mmax; m++)
     {
-        bm = b(m);                                      // Значение b(i)
+        bm = b(m);                                          // Значение b(i)
         ds = bm*sin(m*x);
         sum += ds;
     }
@@ -133,17 +134,24 @@ double g2(double  x, int mmax)                               // Функция g
 
 int main(int argc, const char * argv[])
 {
+    
+    double maxDelta = 0;
     const int mmax = 50;
     for(int i = 1; i < mmax; i++)
         printf("b[%d]=%.6f = %.3f/pi\n", i, b(i), b(i)*M_PI);
     printf("\n");
     
-    for(double x = 0; x <=M_PI*2; x+=M_PI/8) {
+    for(double x = 0; x <= M_PI; x+= M_PI/8) {
         double gx = g2(x, mmax);
         double fx = f(x);
         double dfx = fx - gx;
         printf("x=%.4lf |  %.3lf - %.3lf = %.3lf\n", x, fx, gx, dfx);
+        
+        if(dfx > maxDelta) maxDelta = dfx;
     }
+    
+    
+    cout << endl << "Max delta = " << maxDelta << endl;
     
 //    double yourValue;
 //    double d = 0;
